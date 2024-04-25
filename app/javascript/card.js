@@ -9,12 +9,12 @@ const pay = () => {
   numberElement.mount('#number-form');
   expiryElement.mount('#expiry-form');
   cvcElement.mount('#cvc-form');
-};
-const form = document.getElementById("charge-form");
-form.addEventListener("submit", (e) => {
-  payjp.createToken(numberElement).then(function (response) {
-    if (response.error) {
-    } else {
+
+  const form = document.getElementById("charge-form");
+  form.addEventListener("submit", (e) => {
+    payjp.createToken(numberElement).then(function (response) {
+      if (response.error) {
+      } else {
         const token = response.id;
         const tokenObj = `<input value=${token} name='token' type="hidden">`;
         form.insertAdjacentHTML("beforeend", tokenObj);
@@ -22,9 +22,10 @@ form.addEventListener("submit", (e) => {
         expiryElement.clear();
         cvcElement.clear();
         document.getElementById("charge-form").submit();
-    }
-});
+      }
+    });
     e.preventDefault();
-});
+  });
+};
 
 window.addEventListener("turbo:load", pay);
